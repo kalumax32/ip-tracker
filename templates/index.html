@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Tracker & Geolocation Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 IP Tracker & Geolocation Tool</h1>
+
+        <div class="input-box">
+            <input type="text" id="ipInput" placeholder="Enter IP or domain (e.g., 8.8.8.8)">
+            <button id="trackBtn">Track</button>
+        </div>
+
+        <div id="infoBox"></div>
+        <div id="map" style="height: 400px;"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
