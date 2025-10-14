@@ -1,0 +1,29 @@
+@import "leaflet/dist/leaflet.css";
+.App {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 2em;
+}
+
+input {
+  padding: 0.5em;
+  width: 60%;
+  margin-right: 10px;
+}
+
+button {
+  padding: 0.5em 1em;
+}
+
+.error {
+  color: red;
+  margin-top: 1em;
+}
+
+.result {
+  margin-top: 2em;
+  text-align: left;
+}
+
