@@ -1,29 +1,187 @@
-@import "leaflet/dist/leaflet.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 1.5em; /* Reduced body padding */
+  box-sizing: border-box;
+}
+
 .App {
-  font-family: Arial, sans-serif;
-  max-width: 600px;
+  max-width: 1200px;
+  width: 100%;
   margin: auto;
   text-align: center;
-  padding: 2em;
+}
+
+h1 {
+  font-size: 2.2em; /* Slightly smaller heading */
+  font-weight: 700;
+  color: #bb86fc;
+  margin-bottom: 0.8em; /* Reduced margin */
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.8em; /* Reduced margin */
 }
 
 input {
-  padding: 0.5em;
-  width: 60%;
+  padding: 0.8em 1.2em;
+  width: 50%;
   margin-right: 10px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #bb86fc;
+  box-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
 }
 
 button {
-  padding: 0.5em 1em;
+  padding: 0.8em 1.5em;
+  border: none;
+  border-radius: 8px;
+  background-color: #bb86fc;
+  color: #121212;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #a062f8;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.loader {
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-top: 3px solid #121212;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+.error-container {
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .error {
-  color: red;
-  margin-top: 1em;
+  color: #cf6679;
+  background-color: rgba(207, 102, 121, 0.1);
+  padding: 0.8em;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.content-area {
+  margin-top: 1.5em; /* Reduced margin */
+  min-height: 400px; /* Matched to new map height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.spinner {
+  border: 8px solid #333;
+  border-top: 8px solid #bb86fc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
+}
+
+.initial-prompt {
+  color: #777;
+  font-size: 1.2em;
+}
+
+.result-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2em;
+  width: 100%;
+  align-items: stretch;
 }
 
 .result {
-  margin-top: 2em;
+  background-color: #1e1e1e;
+  padding: 1em 1.5em; /* Reduced padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: left;
 }
 
+.result p {
+  margin: 0.8em 0; /* Reduced margin */
+  font-size: 1.05em; /* Slightly smaller font */
+}
+
+.result strong {
+  color: #bb86fc;
+  display: block;
+  margin-bottom: 0.2em;
+  font-weight: 700;
+}
+
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  height: 400px; /* Reduced height from 500px to 400px */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .result-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .content-area {
+    min-height: auto;
+  }
+  .map-container {
+    height: 400px;
+  }
+}

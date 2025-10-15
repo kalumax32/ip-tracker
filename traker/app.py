@@ -9,7 +9,6 @@ CORS(app)
 
 def extract_domain(user_input):
     """Extract domain from full URL or return raw input if it's a domain or IP"""
-    # If input doesn't have scheme, add dummy scheme
     if not user_input.startswith("http://") and not user_input.startswith("https://"):
         user_input = "http://" + user_input
 
@@ -25,31 +24,31 @@ def track():
         return jsonify({"error": "No input provided"}), 400
 
     try:
-        # Step 1: Extract domain or IP from full URL
         domain_or_ip = extract_domain(user_input)
 
-        # Step 2: Resolve domain to IP
         try:
             resolved_ip = socket.gethostbyname(domain_or_ip)
         except socket.gaierror:
             return jsonify({"error": "Invalid domain or IP"}), 400
 
-        # Step 3: Use IP geolocation API
-        response = requests.get(f"https://ipapi.co/{resolved_ip}/json/")
+        # Using the ip-api.com endpoint
+        response = requests.get(f"http://ip-api.com/json/{resolved_ip}")
+        
         if response.status_code != 200:
             return jsonify({"error": "Failed to fetch IP info"}), 500
 
         ip_data = response.json()
 
+        # Corrected keys to match the ip-api.com response
         result = {
             "resolved_ip": resolved_ip,
             "city": ip_data.get("city"),
-            "region": ip_data.get("region"),
-            "country_name": ip_data.get("country_name"),
-            "org": ip_data.get("org"),
-            "timezone": ip_data.get("timezone"),
-            "latitude": ip_data.get("latitude"),
-            "longitude": ip_data.get("longitude")
+            "region": ip_data.get("regionName"),  # Corrected key
+            "country_name": ip_data.get("country"),    # Corrected key
+            "org": ip_data.get("isp"),           # Corrected key
+            "timezone": ip_data.get("timezone"),   # Corrected key
+            "latitude": ip_data.get("lat"),          # Corrected key
+            "longitude": ip_data.get("lon")          # Corrected key
         }
 
         return jsonify(result)
