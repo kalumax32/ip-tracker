@@ -8,7 +8,6 @@ app = Flask(__name__)
 CORS(app)
 
 def extract_domain(user_input):
-    """Extract domain from full URL or return raw input if it's a domain or IP"""
     if not user_input.startswith("http://") and not user_input.startswith("https://"):
         user_input = "http://" + user_input
 
@@ -31,7 +30,6 @@ def track():
         except socket.gaierror:
             return jsonify({"error": "Invalid domain or IP"}), 400
 
-        # Using the ip-api.com endpoint
         response = requests.get(f"http://ip-api.com/json/{resolved_ip}")
         
         if response.status_code != 200:
@@ -39,16 +37,15 @@ def track():
 
         ip_data = response.json()
 
-        # Corrected keys to match the ip-api.com response
         result = {
             "resolved_ip": resolved_ip,
             "city": ip_data.get("city"),
-            "region": ip_data.get("regionName"),  # Corrected key
-            "country_name": ip_data.get("country"),    # Corrected key
-            "org": ip_data.get("isp"),           # Corrected key
-            "timezone": ip_data.get("timezone"),   # Corrected key
-            "latitude": ip_data.get("lat"),          # Corrected key
-            "longitude": ip_data.get("lon")          # Corrected key
+            "region": ip_data.get("regionName"),
+            "country_name": ip_data.get("country"),
+            "org": ip_data.get("isp"),
+            "timezone": ip_data.get("timezone"),
+            "latitude": ip_data.get("lat"),
+            "longitude": ip_data.get("lon")
         }
 
         return jsonify(result)
